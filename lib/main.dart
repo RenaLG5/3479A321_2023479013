@@ -21,7 +21,10 @@ class MinesweeperScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Buscaminas')),
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: const Text('Buscaminas'),
+      ),
       body: SafeArea(
         // Protege la UI de los bordes del dispositivo
         child: Column(
@@ -31,22 +34,26 @@ class MinesweeperScreen extends StatelessWidget {
             Container(
               height: 60,
               color: Colors.grey[300],
-              child: const Center(
-                child: Text(
-                  'STATUS: 349 segundos | Minas: 10 | Cuadros: 56',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.timer),
+                    SizedBox(width: 10),
+                    Text(
+                      '349 segundos',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
             const Divider(height: 1),
             // Área de Juego
-            Expanded(
-              // Expande el tablero para llenar la pantalla
-              child: Text(
-                'Tablero de Juego',
-                style: TextStyle(fontSize: 24, color: Colors.grey),
-              ),
-            ),
+            Expanded(child: _gameBoard()),
           ],
         ),
       ),
@@ -71,12 +78,28 @@ class MinesweeperScreen extends StatelessWidget {
               return Container(
                 decoration: BoxDecoration(
                   color: Colors.grey[400],
-                  border: Border.all(color: Colors.grey[600]!, width: 1.5),
+                  border: Border.all(color: Colors.grey[300]!, width: 1.5),
                 ),
               );
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MineCell extends StatelessWidget {
+  final int index;
+
+  const MineCell({super.key, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[400],
+        border: Border.all(color: Colors.grey[600]!, width: 1.5),
       ),
     );
   }
