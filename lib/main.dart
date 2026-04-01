@@ -23,6 +23,7 @@ class MinesweeperScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
+        leading: const Icon(Icons.games),
         title: const Text('Buscaminas'),
       ),
       body: SafeArea(
@@ -39,12 +40,36 @@ class MinesweeperScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
                     Icon(Icons.timer),
-                    SizedBox(width: 10),
+                    SizedBox(width: 8),
                     Text(
-                      '349 segundos',
+                      '349 seg',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 16,
+                      ),
+                    ),
+
+                    SizedBox(width: 20),
+
+                    Icon(Icons.warning),
+                    SizedBox(width: 8),
+                    Text(
+                      '10 minas',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+
+                    SizedBox(width: 20),
+
+                    Icon(Icons.grid_on),
+                    SizedBox(width: 8),
+                    Text(
+                      '64 cuadros',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
                     ),
                   ],
@@ -75,12 +100,7 @@ class MinesweeperScreen extends StatelessWidget {
             ),
             itemCount: 64, // 8x8 = 64 celdas
             itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[400],
-                  border: Border.all(color: Colors.grey[300]!, width: 1.5),
-                ),
-              );
+              return MineCell(index: index);
             },
           ),
         ),
@@ -92,7 +112,7 @@ class MinesweeperScreen extends StatelessWidget {
 class MineCell extends StatelessWidget {
   final int index;
 
-  const MineCell({super.key, required this.index});
+  const MineCell({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +120,7 @@ class MineCell extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey[400],
         border: Border.all(color: Colors.grey[600]!, width: 1.5),
+        borderRadius: BorderRadius.circular(4),
       ),
     );
   }
