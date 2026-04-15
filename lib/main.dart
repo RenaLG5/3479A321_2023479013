@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+
+var logger = Logger();
 
 void main() {
+  logger.d('Debug');
+  logger.i('Iniciando Buscaminas');
+  logger.w('Advertencia de prueba');
+  logger.e('Error de prueba');
+
   runApp(const MyApp());
 }
 
@@ -20,6 +28,7 @@ class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    logger.i('Renderizando MinesweeperScreen');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -86,6 +95,7 @@ class MinesweeperScreen extends StatelessWidget {
   }
 
   Widget _gameBoard() {
+    logger.d('Construyendo tablero');
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -116,6 +126,7 @@ class MineCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logger.d('Celda: $index');
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[400],
