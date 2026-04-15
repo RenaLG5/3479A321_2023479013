@@ -2,71 +2,64 @@ import 'package:flutter/material.dart';
 import '../widgets/mine_cell.dart';
 import 'package:logger/logger.dart';
 
-
 var logger = Logger();
 
 class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     logger.i('Renderizando MinesweeperScreen');
+
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: theme.colorScheme.primary,
         leading: const Icon(Icons.games),
         title: const Text('Buscaminas'),
       ),
       body: SafeArea(
-        // Protege la UI de los bordes del dispositivo
         child: Column(
-          // Apila el marcador arriba y el tablero abajo
           children: [
             // Área de Status
             Container(
               height: 60,
-              color: Colors.grey[300],
+              color: theme.colorScheme.secondary,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.timer),
-                    SizedBox(width: 8),
-                    Text(
-                      '349 seg',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                  children: [
+                    Icon(
+                      Icons.timer,
+                      size: 30,
+                      color: theme.colorScheme.onSecondary,
                     ),
+                    const SizedBox(width: 5),
+                    Text('349 seg', style: theme.textTheme.bodyMedium),
 
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
 
-                    Icon(Icons.warning),
-                    SizedBox(width: 8),
-                    Text(
-                      '10 minas',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                    Image.asset('assets/icons/flag.png', width: 30, height: 30),
+                    const SizedBox(width: 5),
+                    Text('10 minas', style: theme.textTheme.bodyMedium),
+
+                    const SizedBox(width: 20),
+
+                    Icon(
+                      Icons.grid_on,
+                      size: 30,
+                      color: theme.colorScheme.onSecondary,
                     ),
-
-                    SizedBox(width: 20),
-
-                    Icon(Icons.grid_on),
-                    SizedBox(width: 8),
-                    Text(
-                      '64 cuadros',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
+                    const SizedBox(width: 5),
+                    Text('64 cuadros', style: theme.textTheme.bodyMedium),
                   ],
                 ),
               ),
             ),
-            const Divider(height: 1),
+
+            Divider(height: 1, color: theme.colorScheme.outline),
+
             // Área de Juego
             Expanded(child: _gameBoard()),
           ],
@@ -77,19 +70,20 @@ class MinesweeperScreen extends StatelessWidget {
 
   Widget _gameBoard() {
     logger.d('Construyendo tablero');
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: AspectRatio(
-          aspectRatio: 1.0, // Cuadrado perfecto
+          aspectRatio: 1.0,
           child: GridView.builder(
-            physics: const NeverScrollableScrollPhysics(), // Bloquea el scroll
+            physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 8, // 8 columnas
+              crossAxisCount: 8,
               crossAxisSpacing: 2.0,
               mainAxisSpacing: 2.0,
             ),
-            itemCount: 64, // 8x8 = 64 celdas
+            itemCount: 64,
             itemBuilder: (context, index) {
               return MineCell(index: index);
             },

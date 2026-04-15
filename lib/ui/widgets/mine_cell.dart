@@ -10,12 +10,16 @@ class MineCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.d('Celda: $index');
+    final theme = Theme.of(context);
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[400],
-        border: Border.all(color: Colors.grey[600]!, width: 1.5),
+        color: theme.colorScheme.secondary, // 👈 color del tema
+        border: Border.all(color: theme.colorScheme.outline, width: 1.5),
         borderRadius: BorderRadius.circular(4),
+      ),
+      child: Center(
+        child: Image.asset('assets/icons/land-mine.png', width: 30, height: 30),
       ),
     );
   }

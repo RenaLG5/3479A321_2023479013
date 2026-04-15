@@ -19,8 +19,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Buscaminas',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const MinesweeperScreen(), //nueva pantalla
+
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+          primary: Colors.teal,
+          secondary: Colors.orange,
+        ),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 200, 230, 255),
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+        useMaterial3: true,
+      ),
+
+      home: const MinesweeperScreen(),
     );
   }
 }
