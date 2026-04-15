@@ -14,7 +14,7 @@ class MineCell extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.secondary, // 👈 color del tema
+        color: theme.colorScheme.secondary,
         border: Border.all(color: theme.colorScheme.outline, width: 1.5),
         borderRadius: BorderRadius.circular(4),
       ),
