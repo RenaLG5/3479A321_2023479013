@@ -1,0 +1,63 @@
+[33mcommit e7dba1897a20953fcda73d13c10ef1e1f6400ad1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/feature/structure_and_assets[m[33m, [m[1;32mfeature/structure_and_assets[m[33m)[m
+Author: MariaJoseParedes <mjparedes.oltra@gmail.com>
+Date:   Fri Apr 17 11:58:15 2026 -0400
+
+    retroalimentación pub spec lab 3
+    
+    Añadir los iconos o assets al pub spec
+
+[33mcommit f76be597e1bcd5f7279b80888b0abf88fb2938dc[m
+Author: Rena <rleon23@alumnos.utalca.cl>
+Date:   Wed Apr 15 03:03:20 2026 -0400
+
+    Agrega pantalla About y navegación desde AppBar
+
+[33mcommit f18358c3e633ba189b9414f8d4dc8354bd5f87c4[m
+Author: Rena <rleon23@alumnos.utalca.cl>
+Date:   Wed Apr 15 02:28:56 2026 -0400
+
+    Implementación de assets y estilos
+
+[33mcommit c8a64393ae5ac133dd0068377afeb13828d43fc5[m
+Author: Rena <rleon23@alumnos.utalca.cl>
+Date:   Wed Apr 15 01:24:56 2026 -0400
+
+    Reestructuracion de proyecto
+    
+    Creacion de carpetas widget y screen, y migración de codigo para los nuevos archivos
+
+[33mcommit ec8e19bf3e36046960cbd7435a772d38c7f4be5c[m
+Author: Rena <rleon23@alumnos.utalca.cl>
+Date:   Wed Apr 15 01:00:17 2026 -0400
+
+    Se agrega logger
+
+[33mcommit b13f0c638ac0c70808edc093fe116fce07c5ecaf[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/feature/minesweeper_ui[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Rena <rleon23@alumnos.utalca.cl>
+Date:   Wed Apr 1 18:44:29 2026 -0300
+
+    Aplicacion de cambios visuales en la interfaz del buscaminas
+
+[33mcommit 16252271aad7df8e9f8776d9d153d259388bd572[m
+Author: Rena <rleon23@alumnos.utalca.cl>
+Date:   Wed Apr 1 18:22:33 2026 -0300
+
+    Refactorizacion del tablero creando widget minecell
+
+[33mcommit ed757e0d552c107a70dfcba06816b8155f879146[m
+Author: Rena <rleon23@alumnos.utalca.cl>
+Date:   Wed Apr 1 18:10:14 2026 -0300
+
+    Comentario
+
+[33mcommit 638e9b72181319c17a982d1b00e06c6934df4cff[m
+Author: Rena <rleon23@alumnos.utalca.cl>
+Date:   Wed Apr 1 16:45:59 2026 -0300
+
+    Proyecto limpio para iniciar UI de Buscaminas
+
+[33mcommit 42ea27e62101c847bcc7acf9d60b03d47701203c[m
+Author: Rena <rleon23@alumnos.utalca.cl>
+Date:   Mon Mar 23 23:34:15 2026 -0300
+
+    Primer Commit de flutter

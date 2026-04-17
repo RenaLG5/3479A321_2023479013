@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/mine_cell.dart';
 import 'package:logger/logger.dart';
+import 'about.dart';
 
 var logger = Logger();
 
@@ -18,6 +19,22 @@ class MinesweeperScreen extends StatelessWidget {
         backgroundColor: theme.colorScheme.primary,
         leading: const Icon(Icons.games),
         title: const Text('Buscaminas'),
+
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.person_outline,
+              size: 40,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const AboutScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: Column(
