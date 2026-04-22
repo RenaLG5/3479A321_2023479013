@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'ui/screens/minesweeper_screen.dart';
+import 'ui/screens/menu_screen.dart';
+import 'ui/screens/history_screen.dart';
+import 'ui/screens/about.dart';
 
 var logger = Logger();
 
@@ -22,18 +25,21 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          primary: Colors.teal,
-          secondary: Colors.orange,
-        ),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 200, 230, 255),
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          seedColor: Colors.green,
+          primary: Colors.blue,
+          secondary: Colors.grey,
         ),
         useMaterial3: true,
       ),
 
-      home: const MinesweeperScreen(),
+      initialRoute: '/menu',
+
+      routes: {
+        '/menu': (context) => const MenuScreen(),
+        '/game': (context) => const MinesweeperScreen(),
+        '/history': (context) => const HistoryScreen(),
+        '/about': (context) => const AboutScreen(),
+      },
     );
   }
 }
