@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/mine_cell.dart';
 import 'package:logger/logger.dart';
-import 'history_screen.dart';
+//import 'history_screen.dart';
 import 'about.dart';
 
 var logger = Logger();

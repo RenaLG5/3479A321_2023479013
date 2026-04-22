@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/menu': (context) => const MenuScreen(),
         '/game': (context) => const MinesweeperScreen(),
-        '/history': (context) => const HistoryScreen(),
+        '/history': (context) => HistoryScreen(),
         '/about': (context) => const AboutScreen(),
       },
     );
