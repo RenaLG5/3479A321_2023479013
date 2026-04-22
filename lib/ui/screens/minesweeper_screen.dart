@@ -14,6 +14,11 @@ class MinesweeperScreen extends StatelessWidget {
     logger.i('Renderizando MinesweeperScreen');
 
     final theme = Theme.of(context);
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    final String difficulty = args?['difficulty'] ?? 'Desconocida';
+    final int gridSize = args?['gridSize'] ?? 8;
 
     return Scaffold(
       appBar: AppBar(
@@ -45,6 +50,15 @@ class MinesweeperScreen extends StatelessWidget {
         child: Column(
           children: [
             // Área de Status
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Text('Dificultad: $difficulty'),
+                  Text('Tamaño: $gridSize x $gridSize'),
+                ],
+              ),
+            ),
             Container(
               height: 60,
               color: theme.colorScheme.secondary,
