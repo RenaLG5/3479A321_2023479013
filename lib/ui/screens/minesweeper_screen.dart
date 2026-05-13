@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import '../widgets/mine_cell.dart';
 import '/models/cell_model.dart';
+
+import 'package:provider/provider.dart';
+import '/viewmodels/game_viewmodel.dart';
+
 import 'package:logger/logger.dart';
 import 'about.dart';
 
@@ -14,15 +18,6 @@ class MinesweeperScreen extends StatefulWidget {
 }
 
 class _MinesweeperScreenState extends State<MinesweeperScreen> {
-  late List<CellModel> _cells;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _cells = List.generate(64, (i) => CellModel(index: i));
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -37,15 +32,11 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
     super.dispose();
   }
 
-  void _onCellTapped(int index) {
-    setState(() {
-      _cells[index].isRevealed = true;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     logger.i('Renderizando MinesweeperScreen');
+
+    final gameVM = Provider.of<GameViewModel>(context);
 
     final theme = Theme.of(context);
 
@@ -113,14 +104,14 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
             Divider(height: 1, color: theme.colorScheme.outline),
 
             // Área de Juego
-            Expanded(child: _gameBoard()),
+            Expanded(child: _gameBoard(gameVM)),
           ],
         ),
       ),
     );
   }
 
-  Widget _gameBoard() {
+  Widget _gameBoard(GameViewModel gameVM) {
     logger.d('Construyendo tablero');
 
     return Center(
@@ -135,12 +126,12 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
               crossAxisSpacing: 2.0,
               mainAxisSpacing: 2.0,
             ),
-            itemCount: 64,
+            itemCount: gameVM.cells.length,
             itemBuilder: (context, index) {
               return MineCell(
                 index: index,
-                cell: _cells[index],
-                onTap: () => _onCellTapped(index),
+                cell: gameVM.cells[index],
+                onTap: () => gameVM.revealCell(index),
               );
             },
           ),

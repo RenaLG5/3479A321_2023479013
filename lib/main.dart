@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'ui/screens/minesweeper_screen.dart';
+import 'package:provider/provider.dart';
+import 'viewmodels/game_viewmodel.dart';
 
 var logger = Logger();
 
@@ -10,7 +12,13 @@ void main() {
   logger.w('Advertencia de prueba');
   logger.e('Error de prueba');
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => GameViewModel(),
+
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
