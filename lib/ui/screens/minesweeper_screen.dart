@@ -37,6 +37,12 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
     super.dispose();
   }
 
+  void _onCellTapped(int index) {
+    setState(() {
+      _cells[index].isRevealed = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     logger.i('Renderizando MinesweeperScreen');
@@ -131,7 +137,11 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
             ),
             itemCount: 64,
             itemBuilder: (context, index) {
-              return MineCell(index: index);
+              return MineCell(
+                index: index,
+                cell: _cells[index],
+                onTap: () => _onCellTapped(index),
+              );
             },
           ),
         ),
