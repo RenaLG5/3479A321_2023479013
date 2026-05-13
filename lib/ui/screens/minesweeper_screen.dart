@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
 import '../widgets/mine_cell.dart';
+import '/models/cell_model.dart';
 import 'package:logger/logger.dart';
 import 'about.dart';
 
 var logger = Logger();
 
-class MinesweeperScreen extends StatelessWidget {
+class MinesweeperScreen extends StatefulWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MinesweeperScreen> createState() => _MinesweeperScreenState();
+}
+
+class _MinesweeperScreenState extends State<MinesweeperScreen> {
+  late List<CellModel> _cells;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _cells = List.generate(64, (i) => CellModel(index: i));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    logger.i('didChangeDependencies ejecutado');
+  }
+
+  @override
+  void dispose() {
+    logger.i('dispose ejecutado');
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
