@@ -16,6 +16,34 @@ class MineCell extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
+  Widget _buildCellContent(BuildContext context) {
+    final theme = Theme.of(context);
+
+    if (!cell.isRevealed) {
+      //celda sin revelar
+      return const SizedBox();
+    }
+
+    if (cell.isBomb) {
+      //bomba
+      return Image.asset('assets/icons/land-mine.png', width: 30, height: 30);
+    }
+
+    if (cell.adjacentBombs == 0) {
+      return const SizedBox();
+    }
+
+    return Text(
+      //número de bombas adyacentes
+      '${cell.adjacentBombs}',
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: theme.colorScheme.onSecondary,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -24,28 +52,13 @@ class MineCell extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: theme.colorScheme.secondary,
+          color: cell.isRevealed
+              ? theme.colorScheme.secondary.withOpacity(0.3)
+              : theme.colorScheme.secondary,
           border: Border.all(color: theme.colorScheme.outline, width: 1.5),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Center(
-          child: cell.isRevealed
-              ? cell.isBomb
-                    ? Image.asset(
-                        'assets/icons/land-mine.png',
-                        width: 30,
-                        height: 30,
-                      )
-                    : Text(
-                        '0',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.onSecondary,
-                        ),
-                      )
-              : null,
-        ),
+        child: Center(child: _buildCellContent(context)),
       ),
     );
   }

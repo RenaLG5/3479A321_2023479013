@@ -3,6 +3,7 @@ class CellModel {
   bool isBomb;
   bool isRevealed;
   bool isFlagged;
+  int adjacentBombs = 0;
 
   CellModel({
     required this.index,

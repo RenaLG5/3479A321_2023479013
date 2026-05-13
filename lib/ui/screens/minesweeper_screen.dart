@@ -10,27 +10,8 @@ import 'about.dart';
 
 var logger = Logger();
 
-class MinesweeperScreen extends StatefulWidget {
+class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MinesweeperScreen> createState() => _MinesweeperScreenState();
-}
-
-class _MinesweeperScreenState extends State<MinesweeperScreen> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    logger.i('didChangeDependencies ejecutado');
-  }
-
-  @override
-  void dispose() {
-    logger.i('dispose ejecutado');
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,9 +83,40 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
             ),
 
             Divider(height: 1, color: theme.colorScheme.outline),
+            if (gameVM.isGameOver)
+              Container(
+                width: double.infinity,
+                color: Colors.red,
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    const Text(
+                      'GAME OVER',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+                  ],
+                ),
+              ),
 
             // Área de Juego
             Expanded(child: _gameBoard(gameVM)),
+            const SizedBox(height: 10),
+
+            ElevatedButton.icon(
+              onPressed: () {
+                gameVM.resetGame();
+              },
+              icon: const Icon(Icons.refresh),
+              label: const Text('Reiniciar partida'),
+            ),
+
+            const SizedBox(height: 10),
           ],
         ),
       ),
