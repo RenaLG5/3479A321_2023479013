@@ -69,7 +69,10 @@ class MinesweeperScreen extends StatelessWidget {
 
                     Image.asset('assets/icons/flag.png', width: 30, height: 30),
                     const SizedBox(width: 5),
-                    Text('10 minas', style: theme.textTheme.bodyMedium),
+                    Text(
+                      '${gameVM.totalBombs} minas',
+                      style: theme.textTheme.bodyMedium,
+                    ),
 
                     const SizedBox(width: 20),
 

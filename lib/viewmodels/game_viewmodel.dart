@@ -8,6 +8,8 @@ class GameViewModel extends ChangeNotifier {
 
   bool isGameOver = false;
 
+  int totalBombs = 10;
+
   GameViewModel() {
     cells = List.generate(64, (i) => CellModel(index: i));
 
@@ -113,6 +115,7 @@ class GameViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  @override
   void dispose() {
     _timer?.cancel();
 
