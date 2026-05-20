@@ -96,6 +96,12 @@ class GameViewModel extends ChangeNotifier {
   }
 
   void resetGame() {
+    _timer?.cancel();
+
+    secondsElapsed = 0;
+
+    hasStarted = false;
+
     isGameOver = false;
 
     cells = List.generate(64, (i) => CellModel(index: i));
