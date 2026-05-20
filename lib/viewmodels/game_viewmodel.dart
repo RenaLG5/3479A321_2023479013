@@ -112,4 +112,10 @@ class GameViewModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void dispose() {
+    _timer?.cancel();
+
+    super.dispose();
+  }
 }
