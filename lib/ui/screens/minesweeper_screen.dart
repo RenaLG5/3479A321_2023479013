@@ -60,7 +60,10 @@ class MinesweeperScreen extends StatelessWidget {
                       color: theme.colorScheme.onSecondary,
                     ),
                     const SizedBox(width: 5),
-                    Text('349 seg', style: theme.textTheme.bodyMedium),
+                    Text(
+                      '${gameVM.secondsElapsed} seg',
+                      style: theme.textTheme.bodyMedium,
+                    ),
 
                     const SizedBox(width: 20),
 
