@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../viewmodels/game_viewmodel.dart';
+import '../../viewmodels/settings_viewmodel.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final settingsVM = Provider.of<SettingsViewModel>(context);
+
     final gameVM = Provider.of<GameViewModel>(context);
 
     return Scaffold(
@@ -17,62 +21,55 @@ class SettingsScreen extends StatelessWidget {
 
         child: Column(
           children: [
-            ListTile(
-              title: const Text('Tamaño tablero'),
-              subtitle: Text('${gameVM.boardSize} x ${gameVM.boardSize}'),
-            ),
+            const SizedBox(height: 20),
 
-            Slider(
-              value: gameVM.boardSize.toDouble(),
-              min: 6,
-              max: 12,
-              divisions: 6,
-
-              label: gameVM.boardSize.toString(),
-
-              onChanged: (value) {
-                gameVM.boardSize = value.toInt();
-
-                gameVM.notifyListeners();
-              },
+            const Text(
+              'Dificultad',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 20),
 
-            ListTile(
-              title: const Text('Cantidad de minas'),
-              subtitle: Text('${gameVM.bombCount} minas'),
-            ),
+            DropdownButton<String>(
+              value: settingsVM.difficulty,
 
-            Slider(
-              value: gameVM.bombCount.toDouble(),
-              min: 5,
-              max: 30,
-              divisions: 25,
+              isExpanded: true,
 
-              label: gameVM.bombCount.toString(),
+              items: const [
+                DropdownMenuItem(value: 'Fácil', child: Text('Fácil')),
 
-              onChanged: (value) {
-                gameVM.bombCount = value.toInt();
+                DropdownMenuItem(value: 'Medio', child: Text('Medio')),
 
-                gameVM.notifyListeners();
+                DropdownMenuItem(value: 'Difícil', child: Text('Difícil')),
+              ],
+
+              onChanged: (value) async {
+                await settingsVM.saveSettings(value!);
+
+                gameVM.boardSize = settingsVM.gridSize;
+
+                gameVM.bombCount = settingsVM.bombCount;
+
+                gameVM.resetGame();
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Configuración actualizada')),
+                );
               },
             ),
 
             const SizedBox(height: 30),
 
-            ElevatedButton(
-              onPressed: () async {
-                await gameVM.saveSettings();
+            ListTile(
+              title: const Text('Tamaño tablero'),
 
-                gameVM.resetGame();
+              subtitle: Text('${gameVM.boardSize} x ${gameVM.boardSize}'),
+            ),
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Configuración guardada')),
-                );
-              },
+            ListTile(
+              title: const Text('Cantidad de minas'),
 
-              child: const Text('Guardar'),
+              subtitle: Text('${gameVM.bombCount} minas'),
             ),
           ],
         ),

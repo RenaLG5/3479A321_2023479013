@@ -3,6 +3,7 @@ import 'package:logger/logger.dart';
 import 'ui/screens/minesweeper_screen.dart';
 import 'package:provider/provider.dart';
 import 'viewmodels/game_viewmodel.dart';
+import 'viewmodels/settings_viewmodel.dart';
 import 'ui/screens/settings_screen.dart';
 
 var logger = Logger();
@@ -14,9 +15,12 @@ void main() {
   logger.e('Error de prueba');
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => GameViewModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => GameViewModel()),
 
+        ChangeNotifierProvider(create: (_) => SettingsViewModel()),
+      ],
       child: const MyApp(),
     ),
   );
