@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import '../models/cell_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
 import 'dart:async';
 
 class GameViewModel extends ChangeNotifier {
   List<CellModel> cells = [];
+
+  int boardSize = 8;
+
+  int bombCount = 10;
 
   bool isGameOver = false;
 
@@ -95,6 +100,14 @@ class GameViewModel extends ChangeNotifier {
     for (var cell in cells) {
       cell.isRevealed = true;
     }
+  }
+
+  Future<void> saveSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setInt('boardSize', boardSize);
+
+    await prefs.setInt('bombCount', bombCount);
   }
 
   void resetGame() {
