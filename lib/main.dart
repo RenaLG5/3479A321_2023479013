@@ -3,6 +3,7 @@ import 'package:logger/logger.dart';
 import 'ui/screens/minesweeper_screen.dart';
 import 'package:provider/provider.dart';
 import 'viewmodels/game_viewmodel.dart';
+import 'ui/screens/settings_screen.dart';
 
 var logger = Logger();
 
@@ -40,6 +41,8 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
+
+      routes: {'/settings': (context) => const SettingsScreen()},
 
       home: const MinesweeperScreen(),
     );

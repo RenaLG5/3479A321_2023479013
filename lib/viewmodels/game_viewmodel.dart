@@ -15,18 +15,26 @@ class GameViewModel extends ChangeNotifier {
 
   int totalBombs = 10;
 
-  GameViewModel() {
-    cells = List.generate(64, (i) => CellModel(index: i));
-    loadSettings();
-    _generateBoard();
-    _calculateAdjacentBombs();
-  }
-
   Timer? _timer;
 
   int secondsElapsed = 0;
 
   bool hasStarted = false;
+
+  GameViewModel() {
+    loadSettings();
+    _createBoard();
+  }
+
+  void _createBoard() {
+    cells = List.generate(boardSize * boardSize, (i) => CellModel(index: i));
+
+    _generateBoard();
+
+    _calculateAdjacentBombs();
+
+    notifyListeners();
+  }
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -39,8 +47,10 @@ class GameViewModel extends ChangeNotifier {
   void revealCell(int index) {
     if (!hasStarted) {
       hasStarted = true;
+
       _startTimer();
     }
+
     if (isGameOver) return;
 
     if (cells[index].isRevealed) return;
@@ -49,7 +59,9 @@ class GameViewModel extends ChangeNotifier {
 
     if (cells[index].isBomb) {
       isGameOver = true;
+
       _revealAll();
+
       _timer?.cancel();
     }
 
@@ -59,8 +71,8 @@ class GameViewModel extends ChangeNotifier {
   void _generateBoard() {
     final random = Random();
 
-    for (int i = 0; i < 11; i++) {
-      int bombIndex = random.nextInt(64);
+    for (int i = 0; i < bombCount; i++) {
+      int bombIndex = random.nextInt(boardSize * boardSize);
 
       cells[bombIndex].isBomb = true;
     }
@@ -70,16 +82,21 @@ class GameViewModel extends ChangeNotifier {
     for (var cell in cells) {
       int count = 0;
 
-      int row = cell.index ~/ 8;
-      int col = cell.index % 8;
+      int row = cell.index ~/ boardSize;
+
+      int col = cell.index % boardSize;
 
       for (int i = -1; i <= 1; i++) {
         for (int j = -1; j <= 1; j++) {
           int newRow = row + i;
+
           int newCol = col + j;
 
-          if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
-            int neighborIndex = newRow * 8 + newCol;
+          if (newRow >= 0 &&
+              newRow < boardSize &&
+              newCol >= 0 &&
+              newCol < boardSize) {
+            int neighborIndex = newRow * boardSize + newCol;
 
             if (cells[neighborIndex].isBomb) {
               count++;
@@ -117,6 +134,8 @@ class GameViewModel extends ChangeNotifier {
 
     bombCount = prefs.getInt('bombCount') ?? 10;
 
+    totalBombs = bombCount;
+
     notifyListeners();
   }
 
@@ -129,13 +148,9 @@ class GameViewModel extends ChangeNotifier {
 
     isGameOver = false;
 
-    cells = List.generate(64, (i) => CellModel(index: i));
+    totalBombs = bombCount;
 
-    _generateBoard();
-
-    _calculateAdjacentBombs();
-
-    notifyListeners();
+    _createBoard();
   }
 
   @override

@@ -41,6 +41,14 @@ class MinesweeperScreen extends StatelessWidget {
               );
             },
           ),
+
+          IconButton(
+            icon: const Icon(Icons.settings, size: 35, color: Colors.black),
+
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+          ),
         ],
       ),
       body: SafeArea(
@@ -70,7 +78,7 @@ class MinesweeperScreen extends StatelessWidget {
                     Image.asset('assets/icons/flag.png', width: 30, height: 30),
                     const SizedBox(width: 5),
                     Text(
-                      '${gameVM.totalBombs} minas',
+                      '${gameVM.bombCount} minas',
                       style: theme.textTheme.bodyMedium,
                     ),
 
@@ -82,7 +90,10 @@ class MinesweeperScreen extends StatelessWidget {
                       color: theme.colorScheme.onSecondary,
                     ),
                     const SizedBox(width: 5),
-                    Text('64 cuadros', style: theme.textTheme.bodyMedium),
+                    Text(
+                      '${gameVM.boardSize * gameVM.boardSize} cuadros',
+                      style: theme.textTheme.bodyMedium,
+                    ),
                   ],
                 ),
               ),
@@ -139,8 +150,8 @@ class MinesweeperScreen extends StatelessWidget {
           aspectRatio: 1.0,
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 8,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: gameVM.boardSize,
               crossAxisSpacing: 2.0,
               mainAxisSpacing: 2.0,
             ),

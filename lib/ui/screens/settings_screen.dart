@@ -65,6 +65,8 @@ class SettingsScreen extends StatelessWidget {
               onPressed: () async {
                 await gameVM.saveSettings();
 
+                gameVM.resetGame();
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Configuración guardada')),
                 );
