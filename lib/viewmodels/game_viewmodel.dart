@@ -21,7 +21,19 @@ class GameViewModel extends ChangeNotifier {
 
   bool hasStarted = false;
 
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      secondsElapsed++;
+
+      notifyListeners();
+    });
+  }
+
   void revealCell(int index) {
+    if (!hasStarted) {
+      hasStarted = true;
+      _startTimer();
+    }
     if (isGameOver) return;
 
     if (cells[index].isRevealed) return;
@@ -31,6 +43,7 @@ class GameViewModel extends ChangeNotifier {
     if (cells[index].isBomb) {
       isGameOver = true;
       _revealAll();
+      _timer?.cancel();
     }
 
     notifyListeners();
