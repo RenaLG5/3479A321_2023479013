@@ -33,13 +33,36 @@ class MineCell extends StatelessWidget {
       return const SizedBox();
     }
 
+    Color numberColor;
+
+    switch (cell.adjacentBombs) {
+      case 1:
+        numberColor = Colors.blue;
+        break;
+
+      case 2:
+        numberColor = Colors.green;
+        break;
+
+      case 3:
+        numberColor = Colors.red;
+        break;
+
+      case 4:
+        numberColor = Colors.purple;
+        break;
+
+      default:
+        numberColor = Colors.black87;
+    }
+
     return Text(
       //número de bombas adyacentes
       '${cell.adjacentBombs}',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        color: theme.colorScheme.onSecondary,
+        color: numberColor,
       ),
     );
   }
