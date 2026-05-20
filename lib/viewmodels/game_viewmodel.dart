@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/cell_model.dart';
 import 'dart:math';
+import 'dart:async';
 
 class GameViewModel extends ChangeNotifier {
   List<CellModel> cells = [];
@@ -13,6 +14,12 @@ class GameViewModel extends ChangeNotifier {
     _generateBoard();
     _calculateAdjacentBombs();
   }
+
+  Timer? _timer;
+
+  int secondsElapsed = 0;
+
+  bool hasStarted = false;
 
   void revealCell(int index) {
     if (isGameOver) return;
