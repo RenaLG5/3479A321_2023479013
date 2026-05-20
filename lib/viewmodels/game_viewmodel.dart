@@ -110,6 +110,16 @@ class GameViewModel extends ChangeNotifier {
     await prefs.setInt('bombCount', bombCount);
   }
 
+  Future<void> loadSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    boardSize = prefs.getInt('boardSize') ?? 8;
+
+    bombCount = prefs.getInt('bombCount') ?? 10;
+
+    notifyListeners();
+  }
+
   void resetGame() {
     _timer?.cancel();
 
