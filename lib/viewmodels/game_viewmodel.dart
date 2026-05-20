@@ -17,7 +17,7 @@ class GameViewModel extends ChangeNotifier {
 
   GameViewModel() {
     cells = List.generate(64, (i) => CellModel(index: i));
-
+    loadSettings();
     _generateBoard();
     _calculateAdjacentBombs();
   }
