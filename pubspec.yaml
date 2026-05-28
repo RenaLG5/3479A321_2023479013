@@ -78,6 +78,13 @@ flutter:
     - assets/icons/Buscaminas.png
     - assets/fonts/
     - assets/audio/
+    - assets/capturas/Compartir.png
+    - assets/capturas/CompartirWin.png
+    - assets/capturas/Configuració.png
+    - assets/capturas/Derrota.png
+    - assets/capturas/Juego.png
+    - assets/capturas/Win.png
+    - assets/capturas/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
