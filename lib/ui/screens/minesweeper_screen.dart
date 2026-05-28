@@ -8,6 +8,8 @@ import '/viewmodels/game_viewmodel.dart';
 import 'package:logger/logger.dart';
 import 'about.dart';
 
+import 'package:share_plus/share_plus.dart';
+
 var logger = Logger();
 
 class MinesweeperScreen extends StatelessWidget {
@@ -44,7 +46,6 @@ class MinesweeperScreen extends StatelessWidget {
 
           IconButton(
             icon: const Icon(Icons.settings, size: 35, color: Colors.black),
-
             onPressed: () {
               Navigator.pushNamed(context, '/settings');
             },
@@ -122,6 +123,24 @@ class MinesweeperScreen extends StatelessWidget {
               ),
             // Área de Juego
             Expanded(child: _gameBoard(gameVM)),
+            const SizedBox(height: 10),
+
+            if (gameVM.isGameOver)
+              ElevatedButton.icon(
+                onPressed: () {
+                  final String mensaje =
+                      '¡Acabo de jugar Buscaminas!\n'
+                      'Tiempo: ${gameVM.secondsElapsed} segundos.\n'
+                      'Tablero: ${gameVM.boardSize}x${gameVM.boardSize}\n'
+                      'Minas: ${gameVM.bombCount}\n'
+                      '¡Intenta superarme!';
+
+                  Share.share(mensaje);
+                },
+                icon: const Icon(Icons.share),
+                label: const Text('Compartir resultado'),
+              ),
+
             const SizedBox(height: 10),
 
             ElevatedButton.icon(
