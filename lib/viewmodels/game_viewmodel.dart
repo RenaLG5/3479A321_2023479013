@@ -3,8 +3,11 @@ import '../models/cell_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 
 class GameViewModel extends ChangeNotifier {
+  final AudioPlayer _sfxPlayer = AudioPlayer();
+
   List<CellModel> cells = [];
 
   int boardSize = 8;
@@ -13,6 +16,8 @@ class GameViewModel extends ChangeNotifier {
 
   bool isGameOver = false;
 
+  bool hasWon = false;
+
   int totalBombs = 10;
 
   Timer? _timer;
@@ -20,6 +25,11 @@ class GameViewModel extends ChangeNotifier {
   int secondsElapsed = 0;
 
   bool hasStarted = false;
+
+  void _playSound(String fileName) async {
+    await _sfxPlayer.release();
+    await _sfxPlayer.play(AssetSource('audio/$fileName'));
+  }
 
   GameViewModel() {
     loadSettings();
@@ -51,6 +61,7 @@ class GameViewModel extends ChangeNotifier {
       _startTimer();
     }
 
+    _playSound('click.mp3');
     if (isGameOver) return;
 
     if (cells[index].isRevealed) return;
@@ -59,6 +70,8 @@ class GameViewModel extends ChangeNotifier {
       cells[index].isRevealed = true;
 
       isGameOver = true;
+
+      _playSound('explosion.mp3');
 
       _revealAll();
 
@@ -70,6 +83,8 @@ class GameViewModel extends ChangeNotifier {
     }
 
     _floodFill(index);
+
+    _checkVictory();
 
     notifyListeners();
   }
@@ -157,6 +172,25 @@ class GameViewModel extends ChangeNotifier {
     }
   }
 
+  void _checkVictory() {
+    int revealedSafeCells = cells
+        .where((cell) => cell.isRevealed && !cell.isBomb)
+        .length;
+
+    int totalSafeCells = (boardSize * boardSize) - bombCount;
+
+    if (revealedSafeCells == totalSafeCells) {
+      isGameOver = true;
+      hasWon = true;
+
+      _timer?.cancel();
+
+      _playSound('victory.mp3');
+
+      notifyListeners();
+    }
+  }
+
   void _revealAll() {
     for (var cell in cells) {
       cell.isRevealed = true;
@@ -192,6 +226,8 @@ class GameViewModel extends ChangeNotifier {
 
     isGameOver = false;
 
+    hasWon = false;
+
     totalBombs = bombCount;
 
     _createBoard();
@@ -200,7 +236,7 @@ class GameViewModel extends ChangeNotifier {
   @override
   void dispose() {
     _timer?.cancel();
-
+    _sfxPlayer.dispose();
     super.dispose();
   }
 }

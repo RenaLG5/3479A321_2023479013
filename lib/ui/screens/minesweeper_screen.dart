@@ -103,13 +103,13 @@ class MinesweeperScreen extends StatelessWidget {
             if (gameVM.isGameOver)
               Container(
                 width: double.infinity,
-                color: Colors.red,
+                color: gameVM.hasWon ? Colors.green : Colors.red,
                 padding: const EdgeInsets.all(10),
                 child: Column(
                   children: [
-                    const Text(
-                      'GAME OVER',
-                      style: TextStyle(
+                    Text(
+                      gameVM.hasWon ? '¡VICTORIA!' : 'GAME OVER',
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -120,7 +120,6 @@ class MinesweeperScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
             // Área de Juego
             Expanded(child: _gameBoard(gameVM)),
             const SizedBox(height: 10),
