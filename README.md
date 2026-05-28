@@ -169,33 +169,33 @@ logger:
 
 ## Pantalla Principal
 
-![Juego](capturas/Juego.png)
+![Juego](assets/capturas/Juego.png)
 
 ---
 
 ## Pantalla de Victoria
 
-![Victoria](capturas/Win.png)
+![Victoria](assets/capturas/Win.png)
 
 ---
 
 ## Pantalla de Derrota
 
-![Derrota](capturas/Derrota.png)
+![Derrota](assets/capturas/Derrota.png)
 
 ---
 
 ## Configuración
 
-![Configuración](capturas/Configuración.png)
+![Configuración](assets/capturas/Configuración.png)
 
 ---
 
 ## Compartir Resultado
 
-![Compartir](capturas/Compartir.png)
+![Compartir Derrota](assets/capturas/Compartir.png)
 
-![Compartir](capturas/CompartirWin.png)
+![Compartir Victoria](assets/capturas/CompartirWin.png)
 
 ---
 ## Pantalla Principal
