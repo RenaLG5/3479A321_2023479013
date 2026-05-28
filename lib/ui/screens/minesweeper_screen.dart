@@ -128,12 +128,17 @@ class MinesweeperScreen extends StatelessWidget {
             if (gameVM.isGameOver)
               ElevatedButton.icon(
                 onPressed: () {
-                  final String mensaje =
-                      '¡Acabo de jugar Buscaminas!\n'
-                      'Tiempo: ${gameVM.secondsElapsed} segundos.\n'
-                      'Tablero: ${gameVM.boardSize}x${gameVM.boardSize}\n'
-                      'Minas: ${gameVM.bombCount}\n'
-                      '¡Intenta superarme!';
+                  final String mensaje = gameVM.hasWon
+                      ? '¡Gané en Buscaminas! 😎 \n'
+                            'Tiempo: ${gameVM.secondsElapsed} segundos.\n'
+                            'Tablero: ${gameVM.boardSize}x${gameVM.boardSize}\n'
+                            'Minas: ${gameVM.bombCount}\n'
+                            '¡Intenta superarme!'
+                      : 'Perdí en Buscaminas 😥\n'
+                            'Duré ${gameVM.secondsElapsed} segundos.\n'
+                            'Tablero: ${gameVM.boardSize}x${gameVM.boardSize}\n'
+                            'Minas: ${gameVM.bombCount}\n'
+                            '¿Puedes hacerlo mejor?';
 
                   Share.share(mensaje);
                 },
