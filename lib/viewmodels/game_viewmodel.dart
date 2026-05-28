@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import '../models/cell_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:logger/logger.dart';
+
 import 'dart:math';
 import 'dart:async';
+
+import 'package:sensors_plus/sensors_plus.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class GameViewModel extends ChangeNotifier {
   final AudioPlayer _sfxPlayer = AudioPlayer();
+
+  StreamSubscription? _accelerometerSubscription;
+
+  var logger = Logger();
 
   List<CellModel> cells = [];
 
@@ -31,9 +40,21 @@ class GameViewModel extends ChangeNotifier {
     await _sfxPlayer.play(AssetSource('audio/$fileName'));
   }
 
+  void _initAccelerometer() {
+    _accelerometerSubscription = accelerometerEventStream().listen((
+      AccelerometerEvent event,
+    ) {
+      logger.i(event.x.abs());
+      if (isGameOver && event.x.abs() > 15.0) {
+        resetGame();
+      }
+    });
+  }
+
   GameViewModel() {
     loadSettings();
     _createBoard();
+    _initAccelerometer();
   }
 
   void _createBoard() {
@@ -231,6 +252,7 @@ class GameViewModel extends ChangeNotifier {
     totalBombs = bombCount;
 
     _createBoard();
+    notifyListeners();
   }
 
   @override
@@ -238,5 +260,6 @@ class GameViewModel extends ChangeNotifier {
     _timer?.cancel();
     _sfxPlayer.dispose();
     super.dispose();
+    _accelerometerSubscription?.cancel();
   }
 }
