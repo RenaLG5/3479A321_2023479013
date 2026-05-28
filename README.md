@@ -164,8 +164,7 @@ logger:
 
 ---
 
-## Capturas
-# 📸 Capturas
+# Capturas
 
 ## Pantalla Principal
 
@@ -187,7 +186,7 @@ logger:
 
 ## Configuración
 
-![Configuración](assets/capturas/Configuración.png)
+![Configuración](assets/capturas/Configuracion.png)
 
 ---
 
