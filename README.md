@@ -191,6 +191,7 @@ logger:
 ---
 
 ## Compartir Resultado
+* Estas las hice con una versión anterior, por eso el desglose de la partida es distinto :p (En la versión final aparece si perdiste o ganaste)
 
 ![Compartir Derrota](assets/capturas/Compartir.png)
 
@@ -217,12 +218,13 @@ logger:
 
 # Trabajos Futuros
 
-* Implementación de banderas
-* Diferentes niveles de dificultad
+* Implementación de banderas para sospecha de mina
 * Ranking online
 * Animaciones
 * Multijugador
 * Temas visuales
+* Historial de partidas
+* Crear cuentas para guardar puntos
 * Guardado de partidas
 * Música de fondo
 * Estadísticas del jugador
